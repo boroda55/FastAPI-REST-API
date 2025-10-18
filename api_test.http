@@ -1,0 +1,67 @@
+### Создание пользователя
+
+POST http://localhost:8000/user
+Content-Type: application/json
+
+{
+    "name": "Kirill",
+    "password": "12345678"
+}
+
+
+### "token": "114fdfb3-30df-4cd9-aad8-fed95adecb5c"
+### Логин пользователя
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+  "name": "Kirill",
+  "password": "12345678"
+}
+
+###Редактирование пользователя
+PATCH http://localhost:8000/user/5
+Content-Type: application/json
+x-token: 114fdfb3-30df-4cd9-aad8-fed95adecb5c
+
+
+{
+  "name": "Kiril5"
+
+}
+
+###Удаление пользователя
+DELETE http://localhost:8000/user/1
+
+###x-token: 20f56cf0-8026-4dd1-8ff8-bd9e1047f162
+### Создание объявления
+POST http://localhost:8000/advertisement
+Content-Type: application/json
+
+
+{
+  "title": "Продам машину",
+  "description": "Хорошая машина",
+  "price": 100000
+}
+
+### Получить все объявления
+GET http://localhost:8000/advertisement
+
+### Поиск объявлений по цене
+GET http://localhost:8000/advertisement?min_price=50000&max_price=150000
+
+### Получить конкретное объявление
+GET http://localhost:8000/advertisement/1
+
+### Обновить объявление
+PATCH http://localhost:8000/advertisement/1
+Content-Type: application/json
+
+{
+  "title": "Продам отличную машину",
+  "price": 90000
+}
+
+### Удалить объявление
+DELETE http://localhost:8000/advertisement/1
