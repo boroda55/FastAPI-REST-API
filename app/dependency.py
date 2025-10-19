@@ -22,7 +22,7 @@ async def get_token(session: SessionDependency,
                     x_token: Annotated[Optional[uuid.UUID], Header()] = None,
                     ) -> Optional[Token]:
     if x_token is None:
-        raise HTTPException(403, detail="You are not an authorized user")
+        return None
     query = select(Token).where(
         Token.token == x_token,
         Token.creation_time >=

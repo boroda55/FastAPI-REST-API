@@ -58,7 +58,7 @@ async def search_advertisement(
     if description:
         query = query.where(Advertisements.description.ilike(f"%{description}%"))
     if author:
-        query = query.where(Advertisements.user.ilike(f"%{author}%"))
+        query = query.join(User).where(User.name.ilike(f"%{author}%"))
     if price:
         query = query.where(Advertisements.price == price)
     if min_price:
@@ -115,7 +115,11 @@ async def login(session: SessionDependency, login_data: LoginRequest):
     return token.dict
 
 @app.post('/user', response_model=CreateUserResponse)
-async def create_user(session: SessionDependency, user_data: CreateUserRequest):
+async def create_user(session: SessionDependency,
+                      user_data: CreateUserRequest,
+                      token: TokenDependency):
+    if token and token.user.role != 'admin' and user_data.role != 'admin':
+        raise HTTPException(403, 'Cannot create admin use')
     user_dict = user_data.model_dump(exclude_unset=True)
     user_dict['password'] = auth.hash_password(user_dict['password'])
     user_orm_obj = User(**user_dict)

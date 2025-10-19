@@ -25,7 +25,7 @@ class GetAdvertisementResponse(BaseModel):
     title: str
     description: str
     price: int
-    author_id: str
+    author_id: int
     date_of_creation: datetime
 
 
@@ -37,7 +37,7 @@ class UpdateAdvertisementRequest(BaseModel):
     title: str | None = None
     description: str | None = None
     price: int | None = None
-    author_id: str | None = None
+    author_id: int | None = None
 
 
 class LoginRequest(BaseUserRequest):
